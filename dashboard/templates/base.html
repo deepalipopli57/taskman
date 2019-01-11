@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Dashboard HTML Template</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="template language" name="keywords">
+    <meta content="Tamerlan Soziev" name="author">
+    <meta content="Admin dashboard html template" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="favicon.png" rel="shortcut icon">
+    <link href="apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <link href="{% static 'bower_components/select2/dist/css/select2.min.css' %}"  rel="stylesheet">
+    <link href="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+    <link href="{% static 'bower_components/dropzone/dist/dropzone.css' %}"  rel="stylesheet">
+    <link href="{% static 'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}"  rel="stylesheet">
+    <link href="{% static 'bower_components/fullcalendar/dist/fullcalendar.min.css' %}"  rel="stylesheet">
+    <link href="{% static 'bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css' %}"  rel="stylesheet">
+    <link href="{% static 'bower_components/slick-carousel/slick/slick.css' %}"  rel="stylesheet">
+    <link href="{% static 'css/main.css' %}"  rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'bower_components/dragula.js/dist/dragula.min.css' %}" rel="stylesheet">
+
+  {% block top_scripts %}
+
+  {% endblock %}
+
+  </head>
+  <body class="menu-position-side menu-side-left full-screen with-content-panel">
+
+    <div class="all-wrapper with-side-panel solid-bg-all">
+      <div class="search-with-suggestions-w">
+        <div class="search-with-suggestions-modal">
+          <div class="element-search">
+            <input class="search-suggest-input" id="search" onclick="search()" placeholder="Start typing to search..." type="text">
+              <div class="close-search-suggestions">
+                <i class="os-icon os-icon-x"></i>
+              </div>
+            </input>
+          </div>
+        </div>
+      </div>
+      <div class="layout-w">
+        <!--------------------
+        START - Mobile Menu
+        -------------------->
+      {% block mobilesidemenu %}
+        <div class="menu-mobile menu-activated-on-click color-scheme-dark">
+          <div class="mm-logo-buttons-w">
+            <a class="mm-logo" href="/dashboard/index/">
+              <span>Help Anchor</span></a>
+            <div class="mm-buttons">
+              <div class="content-panel-open">
+                <div class="os-icon os-icon-grid-circles"></div>
+              </div>
+              <div class="mobile-menu-trigger">
+                <div class="os-icon os-icon-hamburger-menu-1"></div>
+              </div>
+            </div>
+          </div>
+          <div class="menu-and-user">
+            <div class="logged-user-w">
+              <div class="avatar-w">
+              </div>
+              <div class="logged-user-info-w">
+                <div class="logged-user-name">
+                  <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">{{ request.user }}</font>
+                  </font>
+                </div>
+                <div class="logged-user-role">Administrator</div>
+              </div>
+            </div>
+{#            <ul class="main-menu">#}
+{#              <li>#}
+{#                <a href="/overview/{{ website.hw_uuid }}/">#}
+{#                  <div class="icon-w">#}
+{#                    <div class="os-icon os-icon-layout"></div>#}
+{#                  </div>#}
+{#                  <span>Dashboard</span></a>#}
+{#              </li>#}
+{#              {% if userpermission == 1 %}#}
+{#                <li class="has-sub-menu">#}
+{#                <a href="/add/hw/">#}
+{#                  <div class="icon-w">#}
+{#                    <div class="os-icon os-icon-layers"></div>#}
+{#                  </div>#}
+{#                  <span>Help Website</span></a>#}
+{#                <ul class="sub-menu">#}
+{#                  <li>#}
+{#                    <a href="/add/hw/">Add New Website</a>#}
+{#                  </li>#}
+{#                </ul>#}
+{#              </li>#}
+{#              {% else %}#}
+{#              {% endif %}#}
+{#              <li class="has-sub-menu">#}
+{#                <a href="/hw/{{ website.hw_uuid }}/collections/">#}
+{#                  <div class="icon-w">#}
+{#                    <div class="os-icon os-icon-layers"></div>#}
+{#                  </div>#}
+{#                  <span>Collections</span></a>#}
+{#                <ul class="sub-menu">#}
+{#                  <li>#}
+{#                    <a href="/hw/{{ website.hw_uuid }}/collections/">All Collections</a>#}
+{#                  </li>#}
+{##}
+{#                  {% if userpermission == 1 or userpermission == 3  %}#}
+{#                    <li>#}
+{#                      <a href="/hw/{{ website.hw_uuid }}/collection/add/">Add New Collection</a>#}
+{#                    </li>#}
+{##}
+{#                  {% else %}#}
+{#                  {% endif %}#}
+{##}
+{##}
+{#                </ul>#}
+{#              </li>#}
+{#              <li class="has-sub-menu">#}
+{#                <a href="/hw/{{ website.hw_uuid }}/articles/">#}
+{#                  <div class="icon-w">#}
+{#                    <div class="os-icon os-icon-package"></div>#}
+{#                  </div>#}
+{#                  <span>Articles</span></a>#}
+{#                <ul class="sub-menu">#}
+{#                  <li>#}
+{#                    <a href="/hw/{{ website.hw_uuid }}/articles/">All Articles</a>#}
+{#                  </li>#}
+{#                  {% if userpermission == 1 or userpermission == 3 %}#}
+{#                    <li>#}
+{#                      <a href="/hw/{{ website.hw_uuid }}/article/add/">Add New Article</a>#}
+{#                    </li>#}
+{#                  {% else %}#}
+{#                  {% endif %}#}
+{#                </ul>#}
+{##}
+{#              </li>#}
+{##}
+{#              {% if userpermission == 1 %}#}
+{#               <li>#}
+{#                <a href="/invite/{{ website.hw_uuid }}/">#}
+{#                  <div class="icon-w">#}
+{#                    <div class="os-icon os-icon-layout"></div>#}
+{#                  </div>#}
+{#                  <span>Invite</span></a>#}
+{#              </li>#}
+{##}
+{#              {% else %}#}
+{##}
+{#              {% endif %}#}
+{#              <li>#}
+{#                <a href="/settings/profile/">#}
+{#                  <div class="icon-w">#}
+{#                    <div class="os-icon os-icon-layout"></div>#}
+{#                  </div>#}
+{#                  <span>Settings</span></a>#}
+{#                  <ul class="sub-menu">#}
+{#                  <li>#}
+{#                    <a href="/settings/profile/">Profile Settings</a>#}
+{#                  </li>#}
+{##}
+{#                  <li>#}
+{#                    <a href="/settings/account/">Account Settings</a>#}
+{#                  </li>#}
+{#                </ul>#}
+{#              </li>#}
+{#            </ul>#}
+            <!--------------------
+            END - Mobile Menu List
+            -------------------->
+          </div>
+        </div>
+      {% endblock %}
+        <!--------------------
+        END - Mobile Menu
+        --------------------><!--------------------
+        START - Main Menu
+        -------------------->
+        {% block sidemenu %}
+          <div class="menu-w color-scheme-dark color-style-bright menu-position-side menu-side-left menu-layout-mini sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
+
+          <div class="logo-w">
+            <a class="logo" href="/dashboard/index/">
+              <div class="logo-element"></div>
+              <div class="logo-label">
+                Clean Admin
+              </div>
+            </a>
+          </div>
+          <div class="logged-user-w avatar-inline">
+            <div class="logged-user-i">
+              <div class="avatar-w">
+                <img alt="" src="{% static 'img/avatar1.jpg' %}">
+              </div>
+              <div class="logged-user-info-w">
+                <div class="logged-user-name">
+
+                </div>
+                <div class="logged-user-role">
+                  Administrator
+                </div>
+              </div>
+              <div class="logged-user-toggler-arrow">
+                <div class="os-icon os-icon-chevron-down"></div>
+              </div>
+              <div class="logged-user-menu color-style-bright">
+                <div class="logged-user-avatar-info">
+                  <div class="avatar-w">
+                    <img alt="" src="{% static 'img/avatar1.jpg' %}">
+                  </div>
+                  <div class="logged-user-info-w">
+                    <div class="logged-user-name">
+                      {{ request.user }}
+                    </div>
+                    <div class="logged-user-role">
+                      Administrator
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-icon">
+                  <i class="os-icon os-icon-wallet-loaded"></i>
+                </div>
+                <ul>
+                  <!--<li>-->
+                    <!--<a href="apps_email.html"><i class="os-icon os-icon-mail-01"></i><span>Incoming Mail</span></a>-->
+                  <!--</li>-->
+
+                  <!--<li>-->
+                    <!--<a href="#"><i class="os-icon os-icon-others-43"></i><span>Notifications</span></a>-->
+                  <!--</li>-->
+                  <li>
+                    <a href="/signout/"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <ul class="main-menu">
+            <li class="sub-header">
+              <span>Dashboard</span>
+            </li>
+            <li class="selected">
+              <a href="/index/">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-layout"></div>
+                </div>
+                <span>Dashboard</span></a>
+            </li>
+
+              <li class="has-sub-menu">
+              <a href="/add/task/">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-life-buoy"></div>
+                </div>
+                <span>Add Task</span></a>
+              <div class="sub-menu-w">
+                <div class="sub-menu-header">
+                  Add New Task
+                </div>
+                <div class="sub-menu-icon">
+                  <i class="os-icon os-icon-life-buoy"></i>
+                </div>
+                <div class="sub-menu-i">
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="/add/task/">Add New Task</a>
+                    </li>
+                    </ul>
+                </div>
+              </div>
+            </li>
+
+
+            <li class="has-sub-menu">
+              <a href="/hw/{{ website.hw_uuid }}/collections/">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-layers"></div>
+                </div>
+                <span>Completed Tasks</span></a>
+              <div class="sub-menu-w">
+                <div class="sub-menu-header">
+                  Completed Tasks
+                </div>
+                <div class="sub-menu-icon">
+                  <i class="os-icon os-icon-layers"></i>
+                </div>
+                <div class="sub-menu-i">
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="/task/completed/">Completed Tasks</a>
+                    </li>
+
+
+                    </ul>
+                </div>
+              </div>
+            </li>
+            <li class="sub-header">
+              <span>Pending Tasks</span>
+            </li>
+            <li class="has-sub-menu">
+              <a href="/task/pending/">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-package"></div>
+                </div>
+                <span>Pending Tasks</span></a>
+              <div class="sub-menu-w">
+                <div class="sub-menu-header">
+                  Pending Tasks
+                </div>
+                <div class="sub-menu-icon">
+                  <i class="os-icon os-icon-package"></i>
+                </div>
+                <div class="sub-menu-i">
+                  <ul class="sub-menu">
+                    <li>
+                      <a href="/task/pending/">Pending Tasks</a>
+                    </li>
+
+
+                    </ul>
+                </div>
+              </div>
+            </li>
+
+            <li class=" has-sub-menu">
+              <a href="/logout/">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-signs-11"></div>
+                </div>
+                <span>Logout</span></a>
+              <div class="sub-menu-w">
+                <div class="sub-menu-header">
+                  Logout
+                </div>
+                <div class="sub-menu-icon">
+                 <i class="os-icon os-icon-signs-11"></i>
+                </div>
+                <div class="sub-menu-i">
+                  <ul class="sub-menu">
+{#                    <li>#}
+{#                      <a href="/signout/"><span>Logout</span></a>#}
+{#                    </li>#}
+                    <li>
+                      <a href="/signout/">Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        {% endblock %}
+        <!--------------------
+        END - Main Menu
+        -------------------->
+        <div class="content-w">
+        <div class="top-bar color-scheme-bright">
+          {% block helpwebsites_content %}
+            <div class="fancy-selector-w">
+{#    <div class="fancy-selector-current">#}
+{#      <div class="fs-main-info">#}
+{#        <div class="fs-name">#}
+{#          <a href="/hw/{{ website.hw_uuid }}/collections/">#}
+{#            <span class="text-white">{{ website }}</span>#}
+{#          </a>#}
+{#        </div>#}
+{#        <div class="fs-sub">#}
+{#          <span>{{ website.created_date }}</span>#}
+{#        </div>#}
+{##}
+{#      </div>#}
+{#      <div class="fs-selector-trigger">#}
+{#        <i class="os-icon os-icon-arrow-down4"></i>#}
+{#      </div>#}
+{#    </div>#}
+
+      </div>
+
+
+          {% endblock %}
+  <!--------------------
+  START - Top Menu Controls
+  -------------------->
+{#  <div class="top-menu-controls">#}
+{#    <div class="element-search autosuggest-search-activator">#}
+{#      <input placeholder="Start typing to search..." type="text">#}
+{#    </div>#}
+{##}
+{#    <div class="top-icon top-settings os-dropdown-trigger os-dropdown-position-left">#}
+{#      <i class="os-icon os-icon-ui-46"></i>#}
+{#      <div class="os-dropdown">#}
+{#        <div class="icon-w">#}
+{#          <i class="os-icon os-icon-ui-46"></i>#}
+{#        </div>#}
+{#        <ul>#}
+{#          <li>#}
+{#            <a href="/settings/profile/">#}
+{#              <i class="os-icon os-icon-ui-49"></i>#}
+{#              <span>Profile Settings</span>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li>#}
+{#            <a href="/settings/account/">#}
+{#              <i class="os-icon os-icon-grid-10"></i>#}
+{#              <span>Account Settings</span>#}
+{#            </a>#}
+{#          </li>#}
+{#          <li>#}
+{#            <a href="users_profile_small.html"><i class="os-icon os-icon-ui-44"></i><span>My Invoices</span></a>#}
+{#          </li>#}
+{#          <li>#}
+{#            <a href="/signout/">#}
+{#              <i class="os-icon os-icon-ui-15"></i><span>Logout</span></a>#}
+{#          </li>#}
+{#        </ul>#}
+{#      </div>#}
+{#    </div>#}
+{#    <!--------------------#}
+{#    END - Settings Link in secondary top menu#}
+{#    --------------------><!--------------------#}
+{#    START - User avatar and menu in secondary top menu#}
+{#    -------------------->#}
+{#    <div class="logged-user-w">#}
+{#      <div class="logged-user-i">#}
+{#        <div class="avatar-w">#}
+{#          {% load staticfiles %}#}
+{#          <img alt="" src="{% static 'img/avatar1.jpg' %}">#}
+{#        </div>#}
+{#        <div class="logged-user-menu color-style-bright">#}
+{#          <div class="logged-user-avatar-info">#}
+{#            <div class="avatar-w">#}
+{#              <img alt="" src="{% static 'img/avatar1.jpg' %}">#}
+{#            </div>#}
+{#            <div class="logged-user-info-w">#}
+{#              <div class="logged-user-name">#}
+{#                {{ request.user }}#}
+{#              </div>#}
+{#              <div class="logged-user-role">#}
+{#                Administrator#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#          <div class="bg-icon">#}
+{#            <i class="os-icon os-icon-wallet-loaded"></i>#}
+{#          </div>#}
+{#          <ul>#}
+{#            <!--<li>-->#}
+{#              <!--<a href="apps_email.html"><i class="os-icon os-icon-mail-01"></i><span>Incoming Mail</span></a>-->#}
+{#            <!--</li>-->#}
+{#            <li>#}
+{#              <a href="users_profile_big.html"><i class="os-icon os-icon-user-male-circle2"></i><span>Profile Details</span></a>#}
+{#            </li>#}
+{#            <li>#}
+{#              <a href="/stripe/pricing/{{ website.hw_uuid }}/"><i class="os-icon os-icon-coins-4"></i><span>Billing Details</span></a>#}
+{#            </li>#}
+{#            <!--<li>-->#}
+{#              <!--<a href="#"><i class="os-icon os-icon-others-43"></i><span>Notifications</span></a>-->#}
+{#            <!--</li>-->#}
+{#            <li>#}
+{#              <a href="/signout/"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></a>#}
+{#            </li>#}
+{#          </ul>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#    <!--------------------#}
+{#    END - User avatar and menu in secondary top menu#}
+{#    -------------------->#}
+{#  </div>#}
+  <!--------------------
+  END - Top Menu Controls
+  -------------------->
+</div>
+
+
+          {% block breadcrumb %}
+          {% endblock %}
+          <!--------------------
+          END - Top Bar
+          -------------------->
+          <div class="content-panel-toggler">
+            <i class="os-icon os-icon-grid-squares-22"></i><span>Sidebar</span>
+          </div>
+          <div class="content-i">
+            {% block content_block %}
+            <!--<div class="content-box">-->
+
+            <!--</div>-->
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'bower_components/popper.js/dist/umd/popper.min.js' %}"></script>
+    <script src="{% static 'bower_components/moment/moment.js' %}"></script>
+    <script src="{% static 'bower_components/chart.js/dist/Chart.min.js' %}"></script>
+    <script src="{% static 'bower_components/select2/dist/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'bower_components/jquery-bar-rating/dist/jquery.barrating.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap-validator/dist/validator.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js' %}"></script>
+    <script src="{% static 'bower_components/dropzone/dist/dropzone.js' %}"></script>
+    <script src="{% static 'bower_components/editable-table/mindmup-editabletable.js' %}"></script>
+    <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'bower_components/fullcalendar/dist/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js' %}"></script>
+    <script src="{% static 'bower_components/tether/dist/js/tether.min.js' %}"></script>
+    <script src="{% static 'bower_components/slick-carousel/slick/slick.min.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/util.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/alert.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/button.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/carousel.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/collapse.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/dropdown.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/modal.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/tab.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/tooltip.js' %}"></script>
+    <script src="{% static 'bower_components/bootstrap/js/dist/popover.js' %}"></script>
+    <script src="{% static 'bower_components/dragula.js/dist/dragula.min.js' %}"></script>
+    <script src="{% static 'js/demo_customizer.js' %}"></script>
+    <script src="{% static 'custom/get_cookie.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/flexi-color-picker@1.0.1/colorpicker.min.js"></script>-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-XXXXXXX-9', 'auto');
+      ga('send', 'pageview');
+
+
+var textInput = document.getElementById('search');
+var timeout = null;
+textInput.onkeydown = function (e) {
+    timeout = setTimeout(function () {
+    window.location="/hw/{{ website.hw_uuid }}/article/"+textInput.value+"/"
+    }, 5000);
+
+};
+
+
+    </script>
+
+ {% block bottom_scripts %}
+
+ {% endblock %}
+  </body>
+</html>

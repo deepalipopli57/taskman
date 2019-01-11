@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="/index/">All Tasks</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="#">Completed tasks</a>
+  </li>
+</ul>
+{% endblock %}
+
+
+
+{% block content_block %}
+<div class="content-box">
+  <div class="element-wrapper">
+{#      <a href="/add/task/" class="btn btn-success pull-right">Add New Task</a>#}
+
+  <h6 class="element-header breadcrumb-item">Completed Tasks</h6>
+
+      <div class="todo-app-w">
+        <div class="todo-content">
+                <div class="element-box-tp">
+
+
+
+                                       <div class="table-responsive">
+                        <table class="table table-padded">
+                          <thead>
+                            <tr>
+                              <th>Title</th>
+
+                              <th>
+                                Created Date
+                              </th>
+                              <th>
+                                Modified Date
+                              </th>
+
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                                                      {% if completed.0 %}
+
+
+                {% for task in completed %}
+
+
+
+                            <tr>
+                              <td>
+                                {{ task }}
+                              </td>
+                              <td>
+                                {{ task.created_date }}
+                              </td>
+                              <td>
+                                {{ task.end_date }}
+                              </td>
+
+
+                            </tr>
+                {% endfor %}
+                      {% else %}
+                                                          <div class="alert alert-warning" style="background-color:#fdf1ce;" role="alert">
+                            <strong>It seems that "{{ request.user }}" doesn't have any completed tasks yet.</strong><br>
+                            <a href="/add/task/">Click here to add a new task.</a>
+                          </div>
+
+                      {% endif %}
+                          </tbody>
+                        </table>
+                      </div>
+
+                </div>
+        </div>
+      </div>
+
+
+
+    {% endblock %}

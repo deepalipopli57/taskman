@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+
+{% block breadcrumb %}
+<ul class="breadcrumb">
+
+  <li class="breadcrumb-item">
+    <a href="#">All tasks</a>
+  </li>
+</ul>
+{% endblock %}
+
+
+{% block content_block %}
+{{ task }}
+<div class="content-box">
+  {% if 'delete' in request.GET %}
+    <div class="alert alert-success" style="background-color:#dbf3d8;" role="alert">
+        <strong>Well Done!</strong><br>Your task has been deleted successfully. 
+        <a href="/add/task/">Click here to add new task.</a>
+      </div>
+  {% endif %}
+  <div class="element-wrapper">
+     <h6 class="element-header breadcrumb-item">Tasks</h6>
+      <div class="element-box-tp">
+        <div class="support-index">
+          <div class="support-tickets">
+            <div class="support-tickets-header">
+
+              <div class="tickets-filter">
+
+                  <div class="form-group">
+                    <a href="/add/task/" class="btn btn-block btn-success text-right">Add New Task</a>
+                  </div>
+
+              </div>
+              </div>
+
+            {%  if task_list.0 %}
+             {% for task_list in task_list %}
+
+              <div class="support-ticket" task_id="{{ task_list.id }}">
+                <div class="st-meta p-3">
+
+                    {% if task_list.status == 1 %}
+                    <div class="badge badge-success-inverted">
+                      Completed
+                    <div class="status-pill green">
+                    {% else %}
+                    <div class="badge badge-warning-inverted">
+                      Pending
+                      <div class="status-pill yellow">
+                    {% endif %}
+                  </div>
+                  
+                    
+                  </div>
+                </div>
+
+
+                  <div class="st-body">
+                    <div class="ticket-content">
+                      <h6 class="ticket-title">
+                        {{ task_list }}
+                      </h6>
+                    </div>
+                  </div>
+
+              </div>
+              
+
+          {% endfor %}
+                {%  else %}
+
+            {%  endif  %}
+
+            </div>
+
+                <div class="support-ticket-content-w">
+                {% if task_list.0 %}
+                  
+
+
+
+                  {% for task in task_list %}
+
+                    <div class="support-ticket-content  {% if not forloop.first %} d-none {% endif %} " taskcontent_id="{{ task.id }}">
+                    <div class="support-ticket-content-header">
+                      <h3 class="ticket-header">                         
+                        {{ task }} 
+                      </h3>
+                      <a class="back-to-index" href="#"><i class="os-icon os-icon-arrow-left5"></i><span>Back</span></a><a class="show-ticket-info" href="#"><span>Show Details</span><i class="os-icon os-icon-documents-03"></i></a></div><div class="ticket-thread">
+                      <div class="ticket-reply">
+                        <div class="ticket-reply-info">
+
+                            <span class="info-data">
+                              <span class="label">Created on</span>
+                              <span class="value">{{ task.created_date }}</span>
+                            </span>
+                            </span>
+                            <span class="info-data">
+                              <span class="label">Due on</span>
+                              <span class="value">{{ task.end_date }}</span>
+                            </span>
+                            <div class="actions" href="#">
+                              <i class="os-icon os-icon-ui-46"></i>
+                              <div class="actions-list">
+{#                                <a href="/hw/{{ article.collection.help_website.hw_uuid }}/article/{{ article.id }}/edit/">#}
+{#                                  <i class="os-icon os-icon-ui-49"></i>#}
+{#                                <span>Edit</span></a>#}
+
+                                <a class="danger" href="/task/{{ task.id }}/delete/">
+                                  <i class="os-icon os-icon-ui-15"></i>
+                                  <span>Delete</span>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+
+                      </div>
+                </div></div>
+
+                {% endfor %}
+                {% else %}
+                <div class="support-ticket-content">
+                  <div class="alert alert-warning" role="alert">
+                    You don't have any task added yet.<br>
+                    <strong><a href="/add/task/">Click here to add new task.</a></strong>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+            
+            </div>
+            
+            </div>
+{% endblock %}
+
+{% block bottom_scripts %}
+<script>
+$(document).ready(function () {
+  $('.support-ticket').on('click', function (e) {
+    var task_id = $(this).attr("task_id");
+    $('div.support-ticket-content').addClass('d-none');
+    $('div[taskcontent_id='+task_id+']').removeClass('d-none');
+  });
+});
+
+
+
+</script>
+{% endblock %}

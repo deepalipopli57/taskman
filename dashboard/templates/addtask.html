@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block breadcrumb %}
+  <ul class="breadcrumb">
+
+    <li class="breadcrumb-item">
+      <a href="index.html">Add task</a>
+    </li>
+  </ul>
+{% endblock %}
+
+{% block content_block %}
+
+<div class="content-box">
+  
+  <div class="element-wrapper">
+      <h6 class="element-header breadcrumb-item">Add task</h6>
+      <div class="element-box">
+        
+        <form method="post">
+          {% csrf_token %}
+          
+          
+          <div class="form-group">
+            <label for="">Enter Task Name</label>
+            <input class="form-control" name="task" id="task" placeholder="Enter name of your task" type="text" required>
+          </div>
+          
+          <div class="form-group">
+            <label> Enter Deadline Date</label>
+            <input class="form-control" name="deadlinedate" id="deadlinedate" data-date-inline-picker="true" type="date" >
+          </div>
+
+            <div class="form-group">
+                <label for="">Task Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option>Select Status</option>
+                    <option value="2">Pending</option>
+                    <option value="1">Completed</option>
+                </select>
+            </div>
+            <div class="form-buttons-w">
+              <button class="btn btn-primary" type="submit"> Submit</button>
+            </div></form>
+      </div>
+  </div>
+{% endblock %}
